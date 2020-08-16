@@ -2,6 +2,7 @@
   "expo": {
     "name": "blk-rewards",
     "slug": "blk-rewards",
+    "description": "BlackRock Rewards App",
     "platforms": [
       "ios",
       "android",

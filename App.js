@@ -1,19 +1,52 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { createSwitchNavigator, createBottomTabNavigator, createStackNavigator } from 'react-navigation'
+import LoginScreen from './screens/LoginScreen'
+import HomeScreen from './screens/HomeScreen'
+import RewardsScreen from  './screens/RewardsScreen'
+import FaqScreen from './screens/FaqScreen'
+import { Ionicons } from 'react-native-vector-icons'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+const MainNavigator = createBottomTabNavigator({
+  Home: HomeScreen,
+  Rewards: RewardsScreen,
+  FAQs: FaqScreen
+},
+  {
+    tabBarOptions: {
+      activeTintColor: '#FF4713',
+      inactiveTintColor: '#DCDCDC',
+      activeBackgroundColor: '#000',
+      inactiveBackgroundColor: '#000',
+      labelStyle: {
+        fontSize: 15,
+        margin: 0,
+        padding: 0,
+      },
+    }
+  })
+
+const AppNavigator = createSwitchNavigator({
+  Login: LoginScreen,
+  Main: MainNavigator
+}, {
+  initialRouteName: 'Login'  
+})
+
+HomeScreen.navigationOptions = {
+  tabBarIcon: ({ focused, tintColor }) => (
+    <Ionicons
+      name="ios-home"
+      size={25}
+      color={tintColor}
+    />
+  )
+};
+
+export default class App extends React.Component {
+  render() {
+    console.disableYellowBox = true;
+    return (
+      <AppNavigator />
+    );
+  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
